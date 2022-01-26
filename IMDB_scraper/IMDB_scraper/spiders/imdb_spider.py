@@ -10,3 +10,5 @@ class ImdbSpider(scrapy.Spider):
         with open(filename, "wb") as f:
             f.write(response.body)
 
+    def parse_full_credits(self, response):
+
