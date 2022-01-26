@@ -12,3 +12,12 @@ class ImdbSpider(scrapy.Spider):
 
     def parse_full_credits(self, response):
 
+
+
+class parse_full_credits(self, response):
+    name = 'imdb_spider'   
+    start_urls = ['https://www.imdb.com/title/tt2250192/?ref_=nv_sr_srsg_0']
+
+
+for quote in response.css("a.ipc-link.ipc-link--baseAlt.ipc-link--inherit-color"):
+    
