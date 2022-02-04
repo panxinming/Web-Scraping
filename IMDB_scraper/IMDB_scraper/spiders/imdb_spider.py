@@ -7,15 +7,15 @@ class ImdbSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        url = start_urls[0] + "fullcredits"
+        url = response.url + "fullcredits/"
         yield scrapy.Request(url, callback = self.parse_full_credits)
 
 
     def parse_full_credits(self, response):
         actor = [a.attrib["href"] for a in response.css("td.primary_photo a")]
-        i = random.choice(list(range(0,len(actor))))
-        url = "www.imdb.com" + actor[i]
-        yield scrapy.Request(url, callback = self.parse_actor_page)
+        for next in actor:
+            url = "https://www.imdb.com" + next
+            yield scrapy.Request(url, callback = self.parse_actor_page)
 
 
     def parse_actor_page(self, response):
