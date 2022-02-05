@@ -3,7 +3,7 @@ import random
 
 class ImdbSpider(scrapy.Spider):
     name = 'imdb_spider'
-    start_urls = ['https://www.imdb.com/title/tt0106145/']
+    start_urls = ['https://www.imdb.com/title/tt2250192/']
 
 
     def parse(self, response):
@@ -19,12 +19,15 @@ class ImdbSpider(scrapy.Spider):
 
 
     def parse_actor_page(self, response):
-        for element in response.css("div#content-2-wide.redesign"):
-            actor_name = element.css("span.itemprop::text").get()
-            TV_Movie = element.css("div.filmo-row a::text").getall()
+            actor_name = response.css("span.itemprop::text").get()
+            hhh = response.css("div#content-2-wide.redesign")
+            TV_Movie = hhh.css("div.filmo-row a::text").getall()
             TV_Movie = ",".join(TV_Movie)
-
-            yield {"actor" : actor_name, "movie_or_TV_name" : TV_Movie}
+            for i in TV_Movie.split(","):
+                yield{
+                    "actor":actor_name,
+                    "Movie_or_TV_name":i
+                }
 
 
 
