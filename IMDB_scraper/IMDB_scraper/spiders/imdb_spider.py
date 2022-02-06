@@ -36,18 +36,18 @@ class ImdbSpider(scrapy.Spider):
         The purpose of this function is scrap the actor's name and TV or Moive he 
         has worked before.
         '''
-            # extract actor's name
-            actor_name = response.css("span.itemprop::text").get()
-            # get TV or Movie shows which the actor has worked before.
-            boxes = response.css("div#content-2-wide.redesign")
-            TV_Movie = boxes.css("div.filmo-row b a::text").getall()
-            TV_Movie = ",".join(TV_Movie)
-            # use for loop, so what we can get one row which contains the actor name and one TV or Movie show.
-            for i in TV_Movie.split(","):
-                yield{
-                    "actor":actor_name,
-                    "Movie_or_TV_name":i
-                }
+        # extract actor's name
+        actor_name = response.css("span.itemprop::text").get()
+        # get TV or Movie shows which the actor has worked before.
+        boxes = response.css("div#content-2-wide.redesign")
+        TV_Movie = boxes.css("div.filmo-row b a::text").getall()
+        TV_Movie = ",".join(TV_Movie)
+        # use for loop, so what we can get one row which contains the actor name and one TV or Movie show.
+        for i in TV_Movie.split(","):
+            yield{
+                "actor":actor_name,
+                "Movie_or_TV_name":i
+            }
 
 
 
